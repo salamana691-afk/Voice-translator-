@@ -1,0 +1,6 @@
+{
+  "name": "AutoDub Cloud",
+  "description": "Real-time AI Visual Novel Screen Translator, Cloud Dubbing Backend, and Android Jetpack Compose Companion Architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

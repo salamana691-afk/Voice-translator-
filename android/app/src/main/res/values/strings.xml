@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AutoDub Cloud</string>
+    <string name="scanner_notification_channel">AutoDub Screen Scanner</string>
+</resources>

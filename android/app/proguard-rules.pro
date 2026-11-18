@@ -1,0 +1,2 @@
+-keep class com.autodub.cloud.data.remote.dto.** { *; }
+-keepclassmembers class com.autodub.cloud.data.remote.dto.** { *; }

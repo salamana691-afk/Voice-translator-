@@ -18,7 +18,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -204,10 +203,7 @@ class AutoDubRepository(
             return CloudResult.Error("MISSING_API_KEY", "Isi Gemini API Key dulu di tab Serv!")
         }
 
-        val glossaryType = object : TypeToken>() {}.type
-        val glossary: Map<String, String> = runCatching {
-            gson.fromJson>(settings.glossaryJson, glossaryType) ?: emptyMap()
-        }.getOrDefault(emptyMap())
+        val glossaryText = settings.glossaryJson.trim()
 
         val prompt = buildString {
             appendLine("Terjemahkan dialog Visual Novel berikut dari ${settings.sourceLang} ke ${settings.targetLang} secara natural, emosional, dan sesuai konteks.")
@@ -215,7 +211,7 @@ class AutoDubRepository(
             if (!speakerName.isNullOrBlank()) appendLine("Pembicara: $speakerName")
             if (settings.preserveNames) appendLine("Pertahankan nama karakter asli.")
             if (settings.preserveHonorifics) appendLine("Pertahankan panggilan/honorifics (-san, -kun, -chan, senpai, dll).")
-            if (glossary.isNotEmpty()) appendLine("Glosarium wajib: $glossary")
+            if (glossaryText.isNotEmpty() && glossaryText != "{}") appendLine("Glosarium wajib: $glossaryText")
             if (settings.vnContextEnabled && contextHistory.isNotEmpty()) {
                 appendLine("Konteks percakapan sebelumnya:")
                 contextHistory.takeLast(settings.maxContextTurns).forEach {

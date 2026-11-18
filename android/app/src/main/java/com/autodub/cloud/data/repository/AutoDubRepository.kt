@@ -204,9 +204,9 @@ class AutoDubRepository(
             return CloudResult.Error("MISSING_API_KEY", "Isi Gemini API Key dulu di tab Serv!")
         }
 
+        val glossaryType = object : TypeToken>() {}.type
         val glossary: Map<String, String> = runCatching {
-            val type = object : TypeToken>() {}.type
-            gson.fromJson>(settings.glossaryJson, type) ?: emptyMap()
+            gson.fromJson>(settings.glossaryJson, glossaryType) ?: emptyMap()
         }.getOrDefault(emptyMap())
 
         val prompt = buildString {
